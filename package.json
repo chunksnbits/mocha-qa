@@ -1,0 +1,30 @@
+{
+  "name": "mocha-qa",
+  "version": "0.9.0",
+  "description": "A convenience helper for testing promises using the mochaja library",
+  "main": "promise-it.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/chunksnbits/mocha-qa"
+  },
+  "keywords": [
+    "mocha",
+    "mochajs",
+    "promises",
+    "q",
+    "bluebird",
+    "then",
+    "catch",
+    "tests",
+    "test"
+  ],
+  "author": "https://github.com/chunksnbits",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chunksnbits/mocha-qa/issues"
+  },
+  "homepage": "https://github.com/chunksnbits/mocha-qa"
+}
