@@ -1,5 +1,5 @@
 /* jshint node:true */
-/* global describe, it, qa.catchIt, before, beforeEach, after, afterEach */
+/* global describe, it, catchIt, before, beforeEach, after, afterEach */
 'use strict';
 
 var mocha = {};
@@ -11,14 +11,7 @@ mocha.after = after;
 mocha.afterEach = afterEach;
 
 
-var qa = require('../mocha-qa.js');
-
-it = qa.it;
-before = qa.before;
-beforeEach = qa.beforeEach;
-after = qa.after;
-afterEach = qa.afterEach;
-
+var qa = require('../mocha-qa.js').global();
 
 var doneMock = require('./utils/done-mock.js');
 
@@ -81,7 +74,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.catchIt('it will test a promise', function () {
+      catchIt('it will test a promise', function () {
         return q.reject(new Error('Fail'));
       });
     });
@@ -90,7 +83,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.catchIt('it will test a promise', function () {
+      catchIt('it will test a promise', function () {
         return q.resolve();
       });
     });
@@ -99,7 +92,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.catchIt('it will test a promise', function () {
+      catchIt('it will test a promise', function () {
         var deferred = q.defer();
 
         setTimeout(function () {
@@ -114,7 +107,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.catchIt('it will test a promise', function () {
+      catchIt('it will test a promise', function () {
         var deferred = q.defer();
 
         setTimeout(function () {
