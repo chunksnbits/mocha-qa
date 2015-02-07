@@ -9,10 +9,10 @@ Also will proberly report any failed assertions during the test and report them 
 
 Supported methods:
 
-* [it](##itdescription-fnc)
+* [it](#itdescription-fnc)
 * [catchId](#catchitdescription-fnc)
-* [before](#before-fnc)
-* [after](#after-fnc)
+* [before](#beforefnc)
+* [after](#afterfnc)
 * [beforeEach](#beforeeach-fnc)
 * [afterEach](#aftereach-fnc)
 
