@@ -9,12 +9,12 @@ Also will proberly report any failed assertions during the test and report them 
 
 Supported methods:
 
-* [it](#it)
-* [catchId](#catch-it)
-* [before](#before)
-* [after](#after)
-* [beforeEach](#before-each)
-* [afterEach](#after-each)
+* [it](##itdescription-fnc)
+* [catchId](#catchitdescription-fnc)
+* [before](#before-fnc)
+* [after](#after-fnc)
+* [beforeEach](#beforeeach-fnc)
+* [afterEach](#aftereach-fnc)
 
 ## Usage
 
@@ -118,10 +118,10 @@ describe('My test', function () {
 });
 ```
 
-### `before(description, fnc)`
-### `beforeEach(description, fnc)`
-### `after(description, fnc)`
-### `afterEach(description, fnc)`
+### `before(fnc)`
+### `beforeEach(fnc)`
+### `after(fnc)`
+### `afterEach(fnc)`
 
 Returning a promise on any of the test-hooks will finalize the hook successfully once all promises of the hook are resolved and cause an exception if the promise gets rejected.
 
