@@ -118,7 +118,7 @@ module.exports = {
    * Fails the the test if the promise gets resolved.
    *
    */
-  catch: function catchIt (description, fnc) {
+  catchIt: function catchIt (description, fnc) {
     return itFnc(description, function (done) {
       return attachErrorHandlers(fnc, doneFnc || done);
     });
