@@ -8,13 +8,13 @@ var doneMock = require('./utils/done-mock.js');
 var q = require('q');
 
 describe('MochaJS-QA using q promise library', function () {
-  describe('and promiseIt', function () {
+  describe('and it', function () {
 
     it ('will resolve the test on an immediately fullfilling promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.promiseIt('it will test a promise', function () {
+      qa.it('it will test a promise', function () {
         return q.resolve();
       });
     });
@@ -23,7 +23,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.promiseIt('it will test a promise', function () {
+      qa.it('it will test a promise', function () {
         return q.reject(new Error('Fail'));
       });
     });
@@ -32,7 +32,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.promiseIt('it will test a promise', function () {
+      qa.it('it will test a promise', function () {
         var deferred = q.defer();
 
         setTimeout(function () {
@@ -47,7 +47,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.promiseIt('it will test a promise', function () {
+      qa.it('it will test a promise', function () {
         var deferred = q.defer();
 
         setTimeout(function () {
@@ -59,12 +59,12 @@ describe('MochaJS-QA using q promise library', function () {
     });
   });
 
-  describe('and catchIt', function () {
+  describe('and catch', function () {
     it ('will resolve the test on an immediately failing promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.catchIt('it will test a promise', function () {
+      qa.catch('it will test a promise', function () {
         return q.reject(new Error('Fail'));
       });
     });
@@ -73,7 +73,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.catchIt('it will test a promise', function () {
+      qa.catch('it will test a promise', function () {
         return q.resolve();
       });
     });
@@ -82,7 +82,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.catchIt('it will test a promise', function () {
+      qa.catch('it will test a promise', function () {
         var deferred = q.defer();
 
         setTimeout(function () {
@@ -97,7 +97,7 @@ describe('MochaJS-QA using q promise library', function () {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.catchIt('it will test a promise', function () {
+      qa.catch('it will test a promise', function () {
         var deferred = q.defer();
 
         setTimeout(function () {
@@ -110,74 +110,74 @@ describe('MochaJS-QA using q promise library', function () {
   });
 
   describe('and using setup hooks', function () {
-    it ('will resolve a promiseBefore hook on a fulfilling promise', function (mochaDone) {
+    it ('will resolve a before hook on a fulfilling promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.promiseBefore(function hook () {
+      qa.before(function hook () {
         return q.resolve();
       });
     });
 
-    it ('will resolve a promiseAfter hook on a fulfilling promise', function (mochaDone) {
+    it ('will resolve a after hook on a fulfilling promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.promiseAfter(function hook () {
+      qa.after(function hook () {
         return q.resolve();
       });
     });
 
-    it ('will resolve a promiseBeforeEach hook on a fulfilling promise', function (mochaDone) {
+    it ('will resolve a beforeEach hook on a fulfilling promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.promiseBeforeEach(function hook () {
+      qa.beforeEach(function hook () {
         return q.resolve();
       });
     });
 
-    it ('will resolve a promiseAfterEach hook on a fulfilling promise', function (mochaDone) {
+    it ('will resolve a afterEach hook on a fulfilling promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnDone(mochaDone));
 
-      qa.promiseAfterEach(function hook () {
+      qa.afterEach(function hook () {
         return q.resolve();
       });
     });
 
-    it ('will reject a promiseBefore hook on a failing promise', function (mochaDone) {
+    it ('will reject a before hook on a failing promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.promiseBefore(function hook () {
+      qa.before(function hook () {
         return q.reject(new Error('Fail'));
       });
     });
 
-    it ('will reject a promiseAfter hook on a failing promise', function (mochaDone) {
+    it ('will reject a after hook on a failing promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.promiseAfter(function hook () {
+      qa.after(function hook () {
         return q.reject(new Error('Fail'));
       });
     });
 
-    it ('will reject a promiseBeforeEach hook on a failing promise', function (mochaDone) {
+    it ('will reject a beforeEach hook on a failing promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.promiseBeforeEach(function hook () {
+      qa.beforeEach(function hook () {
         return q.reject(new Error('Fail'));
       });
     });
 
-    it ('will reject a promiseAfterEach hook on a failing promise', function (mochaDone) {
+    it ('will reject a afterEach hook on a failing promise', function (mochaDone) {
 
       qa._test(doneMock.it, doneMock.resolveOnError(mochaDone));
 
-      qa.promiseAfterEach(function hook () {
+      qa.afterEach(function hook () {
         return q.reject(new Error('Fail'));
       });
     });
