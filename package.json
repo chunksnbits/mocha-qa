@@ -26,5 +26,8 @@
   "bugs": {
     "url": "https://github.com/chunksnbits/mocha-qa/issues"
   },
-  "homepage": "https://github.com/chunksnbits/mocha-qa"
+  "homepage": "https://github.com/chunksnbits/mocha-qa",
+  "dependencies": {
+    "lodash": "^3.1.0"
+  }
 }
