@@ -9,12 +9,12 @@ Also will proberly report any failed assertions during the test and report them 
 
 Supported methods:
 
-[it](#it)
-[catchId](#catchIt)
-[before](#before)
-[after](#after)
-[beforeEach](#beforeEach)
-[afterEach](#afterEach)
+* [it](#it)
+* [catchId](#catch-it)
+* [before](#before)
+* [after](#after)
+* [beforeEach](#before-each)
+* [afterEach](#after-each)
 
 ## Usage
 
