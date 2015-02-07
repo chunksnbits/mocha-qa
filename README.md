@@ -11,10 +11,10 @@ Supported methods:
 
 * [it](#itdescription-fnc)
 * [catchId](#catchitdescription-fnc)
-* [before](#beforefnc)
-* [after](#afterfnc)
-* [beforeEach](#beforeeach-fnc)
-* [afterEach](#aftereach-fnc)
+* [before](#hooks)
+* [after](#hooks)
+* [beforeEach](#hooks)
+* [afterEach](#hooks)
 
 ## Usage
 
@@ -96,6 +96,20 @@ describe('My test', function () {
 
 The default test runner. Runs the test function, passing it when the returned promise gets resolved. If no promise is returned will fall back to the default `it` behaviour, i.e., once the function execution is completed.
 
+```
+it = require('mocha-qa').it;
+
+describe('My test', function () {
+  it('will pass on a resolved promise', function () {
+    return myPromise
+      .then(function () {
+        expect(1).to.equal(1);
+      });
+  });
+});
+
+```
+
 ### `catchIt(description, fnc)`
 
 The rejection variant of the `it`-test-runner. Will fail the test on a resolved promise and pass the test, once the promise returned by the test-runner gets rejected.
@@ -118,12 +132,16 @@ describe('My test', function () {
 });
 ```
 
-### `before(fnc)`
-### `beforeEach(fnc)`
-### `after(fnc)`
-### `afterEach(fnc)`
+### Hooks
 
-Returning a promise on any of the test-hooks will finalize the hook successfully once all promises of the hook are resolved and cause an exception if the promise gets rejected.
+Returning a promise on any of the set-up-/tear-down-hooks will finalize the hook successfully once all promises of the hook are resolved and cause an exception if the promise gets rejected.
+
+Supported hooks are:
+
+* `before(fnc)`
+* `beforeEach(fnc)`
+* `after(fnc)`
+* `afterEach(fnc)`
 
 ```
 before = require('mocha-qa').before;
