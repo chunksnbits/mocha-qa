@@ -40,6 +40,14 @@ function attachErrorHandlers (promise, done) {
     });
 }
 
+var doneFnc;
+
+var itFnc = it;
+var beforeFnc = before;
+var beforeEachFnc = beforeEach;
+var afterFnc = after;
+var afterEachFnc = afterEach;
+
 /**
  *
  * Promise wrapper around the mocha.js library.
@@ -49,6 +57,16 @@ function attachErrorHandlers (promise, done) {
  *
  */
 module.exports = {
+
+  _test: function setDone(fnc, done) {
+    doneFnc = done;
+
+    itFnc = fnc;
+    beforeFnc = fnc;
+    afterFnc = fnc;
+    beforeEachFnc = fnc;
+    afterEachFnc = fnc;
+  },
 
   /**
    *
@@ -63,8 +81,8 @@ module.exports = {
    *
    */
   promiseIt: function promiseIt (description, fnc) {
-    return it(description, function (done) {
-      return attachPromiseHandlers(fnc.apply(null, arguments), done);
+    return itFnc(description, function (done) {
+      return attachPromiseHandlers(fnc.apply(null, arguments), doneFnc || done);
     });
   },
 
@@ -81,8 +99,8 @@ module.exports = {
    *
    */
   catchIt: function catchIt (description, fnc) {
-    return it(description, function (done) {
-      return attachErrorHandlers(fnc.apply(null, arguments), done);
+    return itFnc(description, function (done) {
+      return attachErrorHandlers(fnc.apply(null, arguments), doneFnc || done);
     });
   },
 
@@ -98,8 +116,8 @@ module.exports = {
    *
    */
   promiseBefore: function promiseBefore(fnc) {
-    return before(function (done) {
-      return attachPromiseHandlers(fnc.apply(null, arguments), done);
+    return beforeFnc(function (done) {
+      return attachPromiseHandlers(fnc.apply(null, arguments), doneFnc || done);
     });
   },
 
@@ -115,8 +133,8 @@ module.exports = {
    *
    */
   promiseBeforeEach: function promiseBeforeEach(fnc) {
-    return beforeEach(function (done) {
-      return attachPromiseHandlers(fnc.apply(null, arguments), done);
+    return beforeEachFnc(function (done) {
+      return attachPromiseHandlers(fnc.apply(null, arguments), doneFnc || done);
     });
   },
 
@@ -132,8 +150,8 @@ module.exports = {
    *
    */
   promiseAfter: function promiseAfter(fnc) {
-    return after(function (done) {
-      return attachPromiseHandlers(fnc.apply(null, arguments), done);
+    return afterFnc(function (done) {
+      return attachPromiseHandlers(fnc.apply(null, arguments), doneFnc || done);
     });
   },
 
@@ -149,8 +167,8 @@ module.exports = {
    *
    */
   promiseAfterEach: function promiseAfterEach(fnc) {
-    return afterEach(function (done) {
-      return attachPromiseHandlers(fnc.apply(null, arguments), done);
+    return afterEachFnc(function (done) {
+      return attachPromiseHandlers(fnc.apply(null, arguments), doneFnc || done);
     });
   },
 
@@ -163,7 +181,7 @@ module.exports = {
    *
    */
   it: function (description, fnc) {
-    return it(description, fnc);
+    return itFnc(description, fnc);
   },
 
   /**
@@ -175,7 +193,7 @@ module.exports = {
    *
    */
   before: function (description, fnc) {
-    return before(description, fnc);
+    return beforeFnc(description, fnc);
   },
 
   /**
@@ -187,7 +205,7 @@ module.exports = {
    *
    */
   beforeEach: function (description, fnc) {
-    return beforeEach(description, fnc);
+    return beforeEachFnc(description, fnc);
   },
 
   /**
@@ -199,7 +217,7 @@ module.exports = {
    *
    */
   after: function (description, fnc) {
-    return after(description, fnc);
+    return afterFnc(description, fnc);
   },
 
   /**
@@ -211,6 +229,6 @@ module.exports = {
    *
    */
   afterEach: function (description, fnc) {
-    return afterEach(description, fnc);
+    return afterEachFnc(description, fnc);
   }
 };
