@@ -190,5 +190,23 @@ module.exports = {
     return afterEachFnc(function (done) {
       return attachPromiseHandlers(fnc, doneFnc || done);
     });
+  },
+
+  /**
+   *
+   * Adds all promise hooks as global variables
+   *
+   */
+  global: function makeGlobal () {
+
+    GLOBAL.it = this.it;
+    GLOBAL.catchIt = this.catchIt;
+    GLOBAL.before = this.before;
+    GLOBAL.beforeEach = this.beforeEach;
+    GLOBAL.after = this.after;
+    GLOBAL.afterEach = this.afterEach;
+
+    return this;
   }
+
 };
