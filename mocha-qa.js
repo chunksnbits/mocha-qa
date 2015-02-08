@@ -37,12 +37,12 @@ function attachPromiseHandlers (fnc, done) {
 
   try {
     var promise = fnc.apply(null, [done]);
-    if (_.isFunction(promise.then) && _.isFunction(promise.catch)) {
+    if (promise && _.isFunction(promise.then) && _.isFunction(promise.catch)) {
       return promise
         .then(resolve)
         .catch(reject);
     }
-    else if (_.isFunction(promise.then)) {
+    else if (promise && _.isFunction(promise.then)) {
       return promise
         .then(resolve, reject);
     }
@@ -77,12 +77,12 @@ function attachErrorHandlers (fnc, done) {
 
   try {
     var promise = fnc.apply(null, [done]);
-    if (_.isFunction(promise.then) && _.isFunction(promise.catch)) {
+    if (promise && _.isFunction(promise.then) && _.isFunction(promise.catch)) {
       return promise
         .then(reject)
         .catch(resolve);
     }
-    else if (_.isFunction(promise.then)) {
+    else if (promise && _.isFunction(promise.then)) {
       return promise
         .then(reject, resolve);
     }
