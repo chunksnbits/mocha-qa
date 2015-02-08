@@ -5,6 +5,15 @@
 
 var _ = require('lodash');
 
+
+function createError (message, error) {
+  return new Error([
+    message,
+    'Error was:',
+    JSON.stringify(error, null, 2)
+  ].join(' '));
+}
+
 /**
  *
  * Attaches then / catch callbacks to a given promise.
@@ -14,21 +23,33 @@ var _ = require('lodash');
  *
  */
 function attachPromiseHandlers (fnc, done) {
+
+  function resolve () {
+    done();
+  }
+
+  function reject (error) {
+    if (!_.isError(error)) {
+      error = createError('Test failed. Expected promise to be resolved.', error);
+    }
+    done(error);
+  }
+
   try {
     var promise = fnc.apply(null, [done]);
     if (_.isFunction(promise.then) && _.isFunction(promise.catch)) {
       return promise
-        .then(function () {
-          done();
-        })
-        .catch(function (error) {
-          done(error);
-        });
+        .then(resolve)
+        .catch(reject);
     }
-    done();
+    else if (_.isFunction(promise.then)) {
+      return promise
+        .then(resolve, reject);
+    }
+    resolve();
   }
   catch (error) {
-    done(error);
+    reject(error);
   }
 }
 
@@ -42,21 +63,33 @@ function attachPromiseHandlers (fnc, done) {
  *
  */
 function attachErrorHandlers (fnc, done) {
+  function resolve () {
+    done();
+  }
+
+  function reject (error) {
+    if (!_.isError(error)) {
+      error = createError('Test failed. Expected promise to be rejected.', error);
+    }
+
+    done(error);
+  }
+
   try {
     var promise = fnc.apply(null, [done]);
     if (_.isFunction(promise.then) && _.isFunction(promise.catch)) {
       return promise
-        .then(function () {
-          done(new Error('Test failed. Expected promise to be rejected.'));
-        })
-        .catch(function (error) {
-          done();
-        });
+        .then(reject)
+        .catch(resolve);
     }
-    done(new Error('Test failed. Expected function to throw error.'));
+    else if (_.isFunction(promise.then)) {
+      return promise
+        .then(reject, resolve);
+    }
+    reject();
   }
   catch (error) {
-    done();
+    resolve();
   }
 }
 
