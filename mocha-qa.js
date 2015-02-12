@@ -148,6 +148,10 @@ module.exports = {
    *
    */
   it: function promiseIt (description, fnc) {
+    if (callbackRequiresDone(fnc)) {
+      return itFnc(description, fnc);
+    }
+
     return itFnc(description, function (done) {
       return attachPromiseHandlers(fnc, doneFnc || done);
     });
@@ -183,6 +187,10 @@ module.exports = {
    *
    */
   before: function promiseBefore(fnc) {
+    if (callbackRequiresDone(fnc)) {
+      return beforeFnc(fnc);
+    }
+
     return beforeFnc(function (done) {
       return attachPromiseHandlers(fnc, doneFnc || done);
     });
@@ -200,6 +208,10 @@ module.exports = {
    *
    */
   beforeEach: function promiseBeforeEach(fnc) {
+    if (callbackRequiresDone(fnc)) {
+      return beforeEachFnc(fnc);
+    }
+
     return beforeEachFnc(function (done) {
       return attachPromiseHandlers(fnc, doneFnc || done);
     });
@@ -217,6 +229,10 @@ module.exports = {
    *
    */
   after: function promiseAfter(fnc) {
+    if (callbackRequiresDone(fnc)) {
+      return afterFnc(fnc);
+    }
+
     return afterFnc(function (done) {
       return attachPromiseHandlers(fnc, doneFnc || done);
     });
@@ -234,6 +250,10 @@ module.exports = {
    *
    */
   afterEach: function promiseAfterEach(fnc) {
+    if (callbackRequiresDone(fnc)) {
+      return afterEachFnc(fnc);
+    }
+
     return afterEachFnc(function (done) {
       return attachPromiseHandlers(fnc, doneFnc || done);
     });
