@@ -1,5 +1,5 @@
 /* jshint node:true */
-/* global it, before, beforeEach, after, afterEach */
+/* global it, before, beforeEach, after, afterEach, window */
 'use strict';
 
 
