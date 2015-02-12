@@ -66,9 +66,9 @@ describe('My test', function () {
 
 ```
 
-### Mixed test runners
+### Mixing mocha-qa with default mocha
 
-You are able to mix sequential and promise-style-tests using the same methods. In cases no promise gets returned the default mocha-function is applied.
+You can mix default-mocha and mocha-qa style tests using the same methods. In cases no promise gets returned the default mocha test-handling is applied.
 
 ```
 require('mocha-qa').global();
@@ -86,6 +86,26 @@ describe('My test', function () {
     var result = doSomething();
     expect(result.value).to.equal(1);
     // Test passed
+  });
+});
+```
+You are also still able to to use mocha ´done´ resolver method explicitely, just like you would with the default mocha test-cases. E.g.,
+
+```
+require('mocha-qa').global();
+
+describe('My test', function () {
+
+  it('will pass on when calling done ', function (done) {
+    nodestyle.asyncMethod(function (error, result) {
+      // Test failed
+      if (error) {
+        done(error);
+      }
+
+      // Test passed
+      done();
+    });
   });
 });
 ```
