@@ -4,7 +4,7 @@
   "description": "A convenience helper for testing promises using the mochaja library",
   "main": "mocha-qa.js",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
@@ -29,5 +29,8 @@
   "homepage": "https://github.com/chunksnbits/mocha-qa",
   "dependencies": {
     "lodash": "^3.1.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.1.0"
   }
 }
