@@ -5,13 +5,27 @@
 
 var _ = require('lodash');
 
+//
+// Argument handling has been derived from the way
+// angular $injector is parsing function arguments:
+// https://github.com/angular/angular.js/blob/master/src/auto/injector.js#L71
+//
+var FN_ARGS = /^function\s*[^\(]*\(\s*([^\)]*)\)/m;
+var FN_ARG_SPLIT = /,/;
+var STRIP_COMMENTS = /((\/\/.*$)|(\/\*[\s\S]*?\*\/))/mg;
 
-function createError (message, error) {
-  return new Error([
-    message,
-    'Error was:',
-    JSON.stringify(error, null, 2)
-  ].join(' '));
+
+function callbackRequiresDone (fnc) {
+  var fncText = fnc.toString().replace(STRIP_COMMENTS, '');
+  var matches = fncText.match(FN_ARGS);
+
+  if (!matches) {
+    return false;
+  }
+
+  var args = matches[1].replace(/ /g, '').split(FN_ARG_SPLIT);
+
+  return _.contains(args, 'done');
 }
 
 /**
