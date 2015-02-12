@@ -232,12 +232,24 @@ module.exports = {
    */
   global: function makeGlobal () {
 
-    GLOBAL.it = this.it;
-    GLOBAL.catchIt = this.catchIt;
-    GLOBAL.before = this.before;
-    GLOBAL.beforeEach = this.beforeEach;
-    GLOBAL.after = this.after;
-    GLOBAL.afterEach = this.afterEach;
+    var global;
+
+    try {
+      global = GLOBAL;
+    } catch (e) {}
+
+    try {
+      global = window;
+    } catch (e) {}
+
+    if (global) {
+      global.it = this.it;
+      global.catchIt = this.catchIt;
+      global.before = this.before;
+      global.beforeEach = this.beforeEach;
+      global.after = this.after;
+      global.afterEach = this.afterEach;
+    }
 
     return this;
   }
