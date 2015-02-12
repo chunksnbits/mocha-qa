@@ -28,6 +28,18 @@ function callbackRequiresDone (fnc) {
   return _.contains(args, 'done');
 }
 
+function PromiseRejectedError (message) {
+  this.name = 'PromiseRejectedError';
+  this.message = message;
+}
+PromiseRejectedError.prototype = Error.prototype;
+
+function PromiseResolvedError (message) {
+  this.name = 'PromiseResolvedError';
+  this.message = message;
+}
+PromiseResolvedError.prototype = Error.prototype;
+
 /**
  *
  * Attaches then / catch callbacks to a given promise.
@@ -43,8 +55,8 @@ function attachPromiseHandlers (fnc, done) {
   }
 
   function reject (error) {
-    if (!_.isError(error)) {
-      error = createError('Test failed. Expected promise to be resolved.', error);
+    if (!error) {
+      error = new PromiseRejectedError('Test failed. Expected promise to be resolved (No error provided).');
     }
     done(error);
   }
@@ -60,6 +72,7 @@ function attachPromiseHandlers (fnc, done) {
       return promise
         .then(resolve, reject);
     }
+
     resolve();
   }
   catch (error) {
@@ -83,7 +96,7 @@ function attachErrorHandlers (fnc, done) {
 
   function reject (error) {
     if (!_.isError(error)) {
-      error = createError('Test failed. Expected promise to be rejected.', error);
+      error = new PromiseResolvedError('Test failed. Expected promise to be rejected (No error provided).');
     }
 
     done(error);
