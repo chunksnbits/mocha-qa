@@ -1,7 +1,7 @@
 {
   "name": "mocha-qa",
-  "version": "0.9.2",
-  "description": "A convenience helper for testing promises using the mochaja library",
+  "version": "0.9.3",
+  "description": "A convenience helper for testing promises using the mocha library",
   "main": "mocha-qa.js",
   "scripts": {
     "test": "./node_modules/.bin/mocha"
@@ -16,8 +16,12 @@
     "promises",
     "q",
     "bluebird",
+    "reject",
+    "resolve",
     "then",
     "catch",
+    "testing",
+    "unit-tests",
     "tests",
     "test"
   ],
