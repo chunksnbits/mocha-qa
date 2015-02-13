@@ -40,6 +40,12 @@ function PromiseResolvedError (message) {
 }
 PromiseResolvedError.prototype = Error.prototype;
 
+function UnsupportedEnvironmentError (message) {
+  this.name = 'UnsupportedEnvironmentError';
+  this.message = message;
+}
+UnsupportedEnvironmentError.prototype = Error.prototype;
+
 /**
  *
  * Attaches then / catch callbacks to a given promise.
@@ -279,15 +285,7 @@ module.exports = {
    */
   global: function makeGlobal () {
 
-    var global;
-
-    try {
-      global = GLOBAL;
-    } catch (e) {}
-
-    try {
-      global = window;
-    } catch (e) {}
+    var global = typeof window === 'undefined' ? GLOBAL : window;
 
     if (global) {
       global.it = this.it;
@@ -296,6 +294,9 @@ module.exports = {
       global.beforeEach = this.beforeEach;
       global.after = this.after;
       global.afterEach = this.afterEach;
+    }
+    else {
+      throw new UnsupportedEnvironmentError('Could not recognize global process. It seems as if your current environment setup does not support globalizing.');
     }
 
     return this;
