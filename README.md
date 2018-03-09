@@ -1,3 +1,8 @@
+#### *DEPRECATED (This plugin is no longer maintained*
+#### Archive:
+
+---
+
 # mocha-qa
 A convenience helper for testing promises using the mochaja library
 
